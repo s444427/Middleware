@@ -894,3 +894,12 @@
 2021-02-01 04:28:43 ERROR SqlExceptionHelper:142 - ERROR: duplicate key value violates unique constraint "owners_pkey"
   Szczegóły: Key (ownerid)=(7) already exists.
 2021-02-01 04:28:43 ERROR ExceptionMapperStandardImpl:39 - HHH000346: Error during managed flush [org.hibernate.exception.ConstraintViolationException: could not execute statement]
+2021-02-01 15:31:02 ERROR SqlExceptionHelper:142 - ERROR: column owner0_.nwnerid does not exist
+  Wskazówka: Perhaps you meant to reference the column "owner0_.ownerid".
+  Pozycja: 8
+2021-02-01 15:31:02 ERROR DriverManagerConnectionProviderImpl:290 - Connection leak detected: there are 1 unclosed connections upon shutting down pool jdbc:postgresql://localhost:5432/Yacht_charter
+2021-02-01 16:21:32 ERROR SqlExceptionHelper:142 - ERROR: syntax error at or near "'owners'"
+  Pozycja: 15
+2021-02-01 16:21:32 ERROR DriverManagerConnectionProviderImpl:290 - Connection leak detected: there are 1 unclosed connections upon shutting down pool jdbc:postgresql://localhost:5432/Yacht_charter
+2021-02-01 16:40:51 ERROR SqlExceptionHelper:142 - Zapytanie nie zwróciło żadnych wyników.
+2021-02-01 16:40:51 ERROR DriverManagerConnectionProviderImpl:290 - Connection leak detected: there are 1 unclosed connections upon shutting down pool jdbc:postgresql://localhost:5432/Yacht_charter

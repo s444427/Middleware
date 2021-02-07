@@ -5,6 +5,7 @@ import org.hibernate.Session;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Scanner;
 
 
 public class DB_Connection {
@@ -14,58 +15,46 @@ public class DB_Connection {
         System.out.println("Start");
 
         EntityManager entityManager = null;
-
         EntityManagerFactory entityManagerFactory = null;
 
         try {
-
-            // FACTORY NAME HAS TO MATCHED THE ONE FROM PERSISTED.XML !!!
             entityManagerFactory = Persistence.createEntityManagerFactory("hibernate-dynamic");
-
             entityManager = entityManagerFactory.createEntityManager();
             Session session = entityManager.unwrap(Session.class);
 
             //New transaction
             session.beginTransaction();
 
-//            List persons = session.createNativeQuery(
-//                    "SELECT \"OwnerID\"" +
-//                            "\tFROM public.\"Owners\";" )
-//                    .getResultList();
+//            Action type manager
+            DB_Manager manager = new DB_Manager();
+            Scanner scanner = new Scanner(System.in);
 
-            //            //Simple Query
-//            Owner own = new Owner();
-//            own.setOwnerID(7);
-//            own.setOwnerName(15);
-//
-//
-//            session.save(own);
 
-            Owner owner = session.get(Owner.class, 1);
-//            owner.setOwnerName("Paweł");
+            System.out.println("Write type of operation to execute");
+            String inputQuery = scanner.nextLine();
+            String[] inputValues = inputQuery.split("/");
 
-            if (owner == null) {
-                System.out.println(owner.getOwnerID() + " not found! ");
-            } else {
-                System.out.println("Found " + owner.getOwnerName());
+            if(inputValues[0].equals("GET"))
+            {
+                manager.GET(session, inputValues[1], Integer.parseInt(inputValues[2]));
+            }
+            if(inputValues[0].equals("DELETE"))
+            {
+                manager.DELETE(session, inputValues[1], Integer.parseInt(inputValues[2]));
+            }
+            if(inputValues[0].equals("ADD"))
+            {
+                manager.ADD(session, inputValues[1], Integer.parseInt(inputValues[2]), inputValues[3], inputValues[4]);
             }
 
-            System.out.println("Owner " + 1);
-
-
-//            System.out.println(persons);
-
-            //Commit transaction to database
             session.getTransaction().commit();
-
             System.out.println("Done");
-
             session.close();
 
         } catch (Throwable ex) {
-            // Make sure you log the exception, as it might be swallowed
             System.err.println("Initial SessionFactory creation failed. " + ex);
         } finally {
+            assert entityManagerFactory != null;
             entityManagerFactory.close();
         }
     }
